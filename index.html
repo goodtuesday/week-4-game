@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"  type="text/css"  href="assets/css/style.css"> 
+<link href='https://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
+	<title>The Crystal Collector</title>
+
+
+
+</head>
+<body>
+
+<header>
+<div>
+<h1>The Crystal Collector </h1>
+</div>
+</header>
+
+<div class=container-fluid>
+
+<div id=instructions>
+<p> Your chakras are out of alignment!  Collect crystals to match your aura level in order to align them back again!  Your aura level changes every game.  Your chakra alignment is in the bottom box.  Each crystal has a secret number of chakra points.  Collect crystals by clicking on them below, and see their hidden chakra points added to your chakra alignment.  If your chakra alignment matches your aura, you score a win.  If you go over, you lose.  Each time, a new aura level will manifest itelf.  Namaste!   </p>
+</div>
+
+<div id=compNumber>
+<p>Aura Level</p> <p><span id="number">  </span></p>
+</div>
+
+
+<div id= center>
+
+<div id=score>
+<p><span id="winLoseMessage"> Align Your Chakras and Aura! </span></p>
+
+<p><span id="wins">Wins: </span></p>
+
+<p><span id="losses"> Losses: </span></p>
+</div>
+
+
+
+<div id="crystals">
+</div>
+
+</div>
+
+
+
+<div id=action>
+<p>Your Chakra Alignment <span id="yourNumber"> </span></p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">
+	$( document ).ready(function() {
+
+		var numberToGuess = Math.floor(Math.random() * 101) + 19  ;
+
+		var counter = 0;
+
+		var numbers = [10, 5, 3, 7];
+		var value = numbers[Math.floor(Math.random()*numbers.length)];
+
+		function crystalNum(){
+			var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+			var value = numbers[Math.floor(Math.random()*numbers.length)];
+			return value;
+
+		}
+
+
+		var wins=0
+
+		var losses=0
+
+		function reset(){
+		numberToGuess = Math.floor(Math.random() * 101) + 19  ;
+
+	$('#number').text(numberToGuess);
+}
+
+		function resetCounter(){
+		counter=0
+
+		$('#yourNumber').text(counter);
+	}
+
+
+
+
+		$('#number').text(numberToGuess);
+
+		for (var i=0; i< numbers.length; i++){
+
+			var imageCrystal = $('<img>');
+			
+			imageCrystal.attr('data-num', crystalNum());
+
+			imageCrystal.attr('src', 'assets/images/crystal.jpg');
+
+			imageCrystal.attr('alt', 'crystals');
+
+			imageCrystal.addClass('crystalImage');
+
+			$('#crystals').append(imageCrystal);
+		}
+		
+		$('.crystalImage').on('click', function(){
+			counter = counter + parseInt($(this).data('num'));
+			
+			$('#yourNumber').text(counter);
+
+
+
+
+
+
+
+
+			if (counter == numberToGuess){
+				
+				wins++;
+				$("#winLoseMessage").text('Your chakras are aligned!!!!');
+				$("#wins").text("Wins: " + wins);
+				counter=0;
+			reset();
+			resetCounter();
+			
+			
+			}
+
+			else if( counter > numberToGuess){
+				
+				losses++;
+				$("#losses").text("losses: " + losses);
+				$("#winLoseMessage").text('Your chakras are unaligned!!!!');
+				counter=0;
+				reset();
+				resetCounter();
+				
+			
+			}
+
+
+		});
+
+	});
+
+
+</script>
+<footer>
+&copy; Copyright Eric Sievers 2016
+</footer>
+
+
+</body>
+</html>
